@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket World</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body class="bg-vs-mob md:bg-vs-pc bg-cover bg-center bg-no-repeat">
+    <div class="flex flex-col h-screen w-screen justify-center items-center">
+        <div class="p-4 m-4 mt-40">
+            <button class="border-4 md:border-2 rounded-md w-40 py-2 md:py-4 bg-blue-900 text-white font-bold" onclick="startGame()">vs Computer</button>
+        </div>
+        <div class="p-4">
+            <button id="toggleButton" class="border-4 md:border-2  rounded-md w-40 py-2 md:py-4 bg-blue-900 text-white font-bold" >vs Friends</button>
+        </div>
+
+        <div id="content" class="hidden rounded-md bg-transparent border-2 border-orange-400 flex flex-col p-4 justify-between">
+            <span class="text-white font-bold uppercase mb-2">Select</span>
+
+            <button id="player2" class="w-35 px-6 py-1 bg-red-600 focus:bg-yellow-400 text-white mb-2 rounded-md" data-players="2">2 players</button>
+            <button id="player3" class="w-35 px-6 py-1 bg-red-600 focus:bg-yellow-400 text-white mb-2 rounded-md" data-players="3">3 players</button>
+            <button id="player4" class="w-35 px-6 py-1 bg-red-600 focus:bg-yellow-400 text-white mb-2 rounded-md" data-players="4">4 players</button>
+
+            <button class="w-35 px-6 py-1 bg-blue-600 focus:bg-blue-900 text-white rounded-md" onclick="startGame()">Start</button>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById("toggleButton").addEventListener("click", function() {
+        var content = document.getElementById("content");
+        content.classList.toggle("hidden"); // Toggle the 'hidden' class
+        });
+
+        // Add event listeners to buttons with specific IDs
+        document.getElementById("player2").addEventListener("click", update);
+        document.getElementById("player3").addEventListener("click", update);
+        document.getElementById("player4").addEventListener("click", update);
+
+        function update(event) {
+            // Get the total players from the clicked button's data attribute
+            let totalPlayers = parseInt(event.target.dataset.players);
+            
+            // Set the totalPlayers variable and play variable
+            window.totalPlayers = totalPlayers; // assuming totalPlayers is a global variable
+            window.play = "manual"; // assuming play is a global variable
+            
+            // Log the updated values
+            console.log(window.totalPlayers);
+            console.log(window.play);
+        }
+
+        function startGame() {
+            // Get the values to pass
+            let totalPlayers = window.totalPlayers; // Assuming totalPlayers is a global variable
+            let play = window.play; // Assuming play is a global variable
+            
+            // Store the values in session storage
+            sessionStorage.setItem('totalPlayers', totalPlayers);
+            sessionStorage.setItem('play', play);
+            
+            // Redirect to the board.html page
+            window.location.href = 'board.html';
+        }
+    </script>
+</body>
+</html>
+

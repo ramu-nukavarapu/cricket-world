@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket World</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="board.css">
+</head>
+<body class="bg-board-mob md:bg-board-pc bg-cover bg-center bg-no-repeat">
+    <div class="flex flex-col items-center justify-center h-screen w-screen">
+        <div class="">
+            <input class="border-2 mt-2 mb-6 py-4 rounded-md text-center font-bold text-2xl w-60 h-13" id="input" type="text" readonly value="START">
+        </div>
+        <div class="">
+            <div class="" id="board"></div>
+        </div>
+        <div class="">
+            <button id="rollButton" class="border-2 px-20 mt-6 py-4 bg-blue-900 text-white rounded-md font-extrabold text-center">HIT!</button>
+        </div>
+
+    </div>
+    <script type="module" src="script.js"></script>
+    
+</body>
+</html>
