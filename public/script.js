@@ -85,6 +85,7 @@ function rollDice() {
   let index = Math.floor(Math.random() * array.length);
   let display = document.getElementById("input");
   display.value = array[index];
+  playSound(array[index]);
   console.log(array[index]);
   changePlayer(currentPlayerIndex,numArray[index]);
 }
