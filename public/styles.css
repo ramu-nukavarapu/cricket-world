@@ -31262,6 +31262,30 @@ video {
     }
   }
 
+  @media (min-width: 1024px) {
+    .bg-home-pc {
+      background-image: url('/public/assets/homePC.jpg');
+    }
+    .bg-vs-pc {
+      background-image: url('/public/assets/vsPC.jpeg');
+    }
+    .bg-board-pc {
+      background-image: url('/public/assets/boardPC.jpeg');
+    }
+  }
+  
+  @media (max-width: 1023px) {
+    .bg-home-mob {
+      background-image: url('/public/assets/homeMOB.jpeg');
+    }
+    .bg-vs-mob {
+      background-image: url('/public/assets/vsMOB.jpeg');
+    }
+    .bg-board-mob {
+      background-image: url('/public/assets/boardMOB.jpeg');
+    }
+  }
+  
   @media (min-width: 768px) {
     .sm\:container {
       max-width: 768px;
