@@ -3,7 +3,7 @@ let totalPlayers = sessionStorage.getItem('totalPlayers');
 let playMode = sessionStorage.getItem('play');
 let playerNames = JSON.parse(sessionStorage.getItem('playerNames')) || [];
 let autoplay;
-let outspos = {2:"duckout",12:"twicehit",24:"runout",36:"obstructingthefield",49:"Retired",58:"Bowled",67:"TimedOut",77:"HitWicket",84:"catchout",92:"HandlingTheBall",98:"Stumped"};
+let outspos = {2:"duckout",13:"CaughtAndBowled",27:"runout",49:"InsideEdge",58:"Bowled",71:"HitWicket",84:"catchout",98:"Stumped"};
 
 
 console.log(playerNames);
@@ -85,7 +85,7 @@ function rollDice() {
   let index = Math.floor(Math.random() * array.length);
   let display = document.getElementById("input");
   display.value = array[index];
-  playSound(array[index]);
+  playSound(array[index],"mpeg");
   console.log(array[index]);
   changePlayer(currentPlayerIndex,numArray[index]);
 }
@@ -95,14 +95,16 @@ document.getElementById("rollButton").addEventListener("click", rollDice);
 
 //function to change player
 function changePlayer(playerId, rollNumber){
-  changeColor();
+  
   if(rollNumber==0){
+    changeColor();
     if(autoplay && currentPlayerIndex==1){
       rollDice()
     }
     return;
   }
   movePlayer(playerId,rollNumber);
+  changeColor();
 }
 
 // Function to change the color of the roll dice button
@@ -116,12 +118,16 @@ playerDisplay.textContent = playerNames[currentPlayerIndex];
 function changeColor() {
   let playerShow = document.getElementsByClassName("playerDisplay")[0];
   let dice = document.getElementById("rollButton");
+  let display = document.getElementById("input");
+
   dice.classList.remove(team[currentPlayerIndex]);
+  playerShow.classList.remove(team[currentPlayerIndex]);
+
   currentPlayerIndex = (currentPlayerIndex + 1) % totalPlayers;
   playerShow.textContent = playerNames[currentPlayerIndex];
-  dice.classList.add(team[currentPlayerIndex]);
+
   playerShow.classList.add(team[currentPlayerIndex]);
-  
+  dice.classList.add(team[currentPlayerIndex]);
 }
 
 // Player colors
@@ -154,7 +160,7 @@ function movePlayer(playerId, rollNumber) {
       playerPos[playerId] = step;
       const targetCell = document.querySelector(`#cell${step}`);
       if (player && targetCell) {
-        playSound("move");
+        playSound("move","mp3");
         targetCell.append(player);
       }
       if(step==cellNumber){
@@ -162,7 +168,7 @@ function movePlayer(playerId, rollNumber) {
         if(cellNumber in outspos){
           console.log(`hey outs ${outspos[cellNumber]}`);
           showAlert(`${playerNames[playerId]} taken by ${outspos[cellNumber]}`);
-          playSound("out");
+          playSound("out","mpeg");
           sendPlayerToStart(playerId);
         }
       }
@@ -195,8 +201,11 @@ function showAlert(message) {
   }, 2000);
 }
 
-function playSound(msg) {
-  const audio = new Audio(`./assets/sounds/${msg}.mp3`);
+function playSound(msg,type) {
+  const audio = new Audio(`./assets/sounds/${msg}.${type}`);
+  if(msg === 'move'){
+    audio.volume = 0.25;
+  }
   audio.play();
 }
 
@@ -214,7 +223,7 @@ function sendPlayerToStart(playerId) {
 function checkwinning(position,playerId){
   if(position==100){
     showAlert(`${playerNames[playerId]} has Won!`);
-    playSound("win");
+    playSound("win","mp3");
 
     const rollButton = document.getElementById('rollButton');
     rollButton.disabled = true;
