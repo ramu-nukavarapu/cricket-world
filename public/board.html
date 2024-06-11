@@ -6,9 +6,21 @@
     <title>Cricket World</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="board.css">
+    <style>
+        @media (min-width: 1024px) {
+            .board-pc {
+                background-image: url('../public/assets/boardPC.jpeg');
+            }
+        }
+        @media (max-width: 1023px) {
+            .board-mob {
+                background-image: url('../public/assets/boardMOB.jpeg');
+            }
+        }
+    </style>
     
 </head>
-<body class="bg-board-mob md:bg-board-pc bg-cover bg-center bg-no-repeat">
+<body class="board-mob board-pc bg-cover bg-center bg-no-repeat">
     <div id="playerNamesContainer"></div>
     <div class="back"><a href="index.html"><button>&#8592;</button></a></div>
     <div class="flex flex-col items-center justify-center h-screen w-screen">
